@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import './App.css'
 import { HabitLogProvider } from './habits/HabitLogContext'
 import { MonthGrid } from './components/MonthGrid'
 import { StatsScreen } from './components/StatsScreen'
@@ -10,9 +11,9 @@ function App() {
 
   return (
     <HabitLogProvider>
-      <main>
+      <main className="app">
         <h1>Habit Tracker</h1>
-        <nav>
+        <nav className="tabs">
           <button type="button" onClick={() => setView('month')}>
             Month
           </button>
