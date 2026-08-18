@@ -19,12 +19,31 @@ Quick reference:
 When brainstorming or designing a feature, save the spec to:
 
 ```
-wiki/raw/specs/YYYY-MM-DD-<topic>-design.md
+docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md
 ```
 
-## Project status
+## Commands
 
-This repository is currently a blank slate: no application code, package manifest, or build tooling exists yet (see `docs/README.md` for the full spec). There are no build/lint/test commands to run because no project has been scaffolded. When scaffolding the project, pick a stack appropriate for a small frontend-only app and update this file with the actual build/lint/test/dev commands once they exist.
+```bash
+npm install       # install dependencies
+npm run dev       # start dev server
+npm run build     # type-check (tsc -b) + production build
+npm run test      # run Vitest suite once
+npm run test:watch  # Vitest watch mode
+npm run lint      # oxlint
+```
+
+## Architecture
+
+- `src/App.tsx` — top-level component. No routing library; a simple tab/toggle switches between the Month view and Stats view per the design spec.
+- `src/habits/` — shared data layer: `types.ts` (Habit/HabitLogs types), `seedData.ts` (fixed seed habits), `HabitLogContext.tsx` (Context + reducer + localStorage sync), `streak.ts` (streak + future-day-rule logic). Currently stubs (`export {}`) pending issues #3/#4.
+- `src/components/` — `MonthGrid.tsx` and `StatsScreen.tsx`. Currently stubs pending issues #5/#6.
+- Full design: `docs/superpowers/specs/2026-08-19-habit-tracker-design.md`.
+
+## Gotchas
+
+- **Vite/Vitest version pin**: `vite` is pinned to `^7` and `@vitejs/plugin-react` to `^5.2` in `package.json`. `vite@8` (rolldown-based) only works with `@vitejs/plugin-react@6`, but `vitest@3.2.7`'s peer range is `vite ^5‖^6‖^7`. Bumping `vite` or `@vitejs/plugin-react` past those pins without also bumping `vitest` reintroduces a duplicate, type-incompatible `vite` install and breaks `tsc -b` in `npm run build`.
+- **jest-dom matchers**: `src/setupTests.ts` imports `@testing-library/jest-dom/vitest` (not the plain `@testing-library/jest-dom` root import) — this is what gives Vitest's `expect` the correct TypeScript types for matchers like `.toBeInTheDocument()`.
 
 ## What to build
 
