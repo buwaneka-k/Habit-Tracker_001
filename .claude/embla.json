@@ -1,0 +1,60 @@
+{
+  "repo": {
+    "provider": "github",
+    "workspace": "buwaneka-k",
+    "slug": "Habit-Tracker_001",
+    "url": "https://github.com/buwaneka-k/Habit-Tracker_001"
+  },
+  "tracker": {
+    "provider": "github-issues",
+    "jira": {
+      "siteUrl": "",
+      "cloudId": "",
+      "projectKey": "",
+      "boardId": 0,
+      "customFields": {
+        "sprint": "",
+        "acceptanceCriteria": ""
+      },
+      "statuses": {
+        "toDo": [],
+        "inDev": [],
+        "inReview": [],
+        "done": [],
+        "deployed": []
+      },
+      "issueTypes": {
+        "epic": { "jiraName": "", "summaryFormat": "" },
+        "userStory": { "jiraName": "", "summaryFormat": "" },
+        "task": { "jiraName": "", "summaryFormat": "" },
+        "bug": { "jiraName": "", "summaryFormat": "" },
+        "subTask": { "jiraName": "", "summaryFormat": "" }
+      }
+    }
+  },
+  "sprint": {
+    "namingPattern": "",
+    "durationWeeks": 2,
+    "goalFormat": ""
+  },
+  "masterBranch": "main",
+  "featureBranchFormat": "feature/{issue}-{short-description}",
+  "bugBranchFormat": "bug/{issue}-{short-description}",
+  "hotfixBranchFormat": "hotfix/{issue}-{short-description}",
+  "releaseBranchFormat": "release/v{version}",
+  "commitMessageFormat": "{type}({scope}): #{issue} {description}",
+  "team": {
+    "lead": [],
+    "qa": [],
+    "ui": [],
+    "devops": [],
+    "dev": []
+  },
+  "teamsWebhookUrl": "",
+  "reviewSlaHours": 24,
+  "publicHolidays": [],
+  "reviewerMode": "dev",
+  "prSizeGateThreshold": 300,
+  "testCoverageThreshold": 80,
+  "publishThreshold": 60
+}
