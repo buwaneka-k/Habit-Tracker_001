@@ -1,0 +1,12 @@
+{
+  "enabledPlugins": {
+    "skill-creator@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "embla-core@embla-claude-plugins": true,
+    "playwright@claude-plugins-official": true,
+    "github@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "project-setup@embla-claude-plugins": true
+  }
+}

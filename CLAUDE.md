@@ -19,12 +19,36 @@ Quick reference:
 When brainstorming or designing a feature, save the spec to:
 
 ```
-wiki/raw/specs/YYYY-MM-DD-<topic>-design.md
+docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md
 ```
 
-## Project status
+## Commands
 
-This repository is currently a blank slate: no application code, package manifest, or build tooling exists yet (see `docs/README.md` for the full spec). There are no build/lint/test commands to run because no project has been scaffolded. When scaffolding the project, pick a stack appropriate for a small frontend-only app and update this file with the actual build/lint/test/dev commands once they exist.
+```bash
+npm install       # install dependencies
+npm run dev       # start dev server
+npm run build     # type-check (tsc -b) + production build
+npm run test      # run Vitest suite once
+npm run test:watch  # Vitest watch mode
+npm run lint      # oxlint
+```
+
+## Architecture
+
+- `src/App.tsx` — top-level component, wrapped in `HabitLogProvider`. No routing library; a `useState`-backed tab toggle switches between `MonthGrid` and `StatsScreen`.
+- `src/App.css` — app-wide light-neutral palette plus structural classes (`.tabs`, `.month-header`, `.habit-row`, `.day-cell`, `.stats-list`, `.icon-badge`, etc.). Per-habit accent colors and future-day opacity stay as inline dynamic styles in the components; the stylesheet only handles static structure/palette.
+- `src/habits/` — shared data layer: `types.ts` (Habit/HabitLogs types), `seedData.ts` (fixed seed habits), `HabitLogContext.tsx` (Context + reducer + localStorage sync), `streak.ts` (streak + future-day-rule logic).
+- `src/components/` — `MonthGrid.tsx` (habit × day grid with Prev/Next navigation) and `StatsScreen.tsx` (current streak per habit).
+- Full design: `docs/superpowers/specs/2026-08-19-habit-tracker-design.md`.
+- `docs/reviews/` — pr-review reports (one per reviewed PR), written by the `embla-core:pr-review` skill adapted to GitHub (see Gotchas).
+
+## Gotchas
+
+- **Vite/Vitest version pin**: `vite` is pinned to `^7` and `@vitejs/plugin-react` to `^5.2` in `package.json`. `vite@8` (rolldown-based) only works with `@vitejs/plugin-react@6`, but `vitest@3.2.7`'s peer range is `vite ^5‖^6‖^7`. Bumping `vite` or `@vitejs/plugin-react` past those pins without also bumping `vitest` reintroduces a duplicate, type-incompatible `vite` install and breaks `tsc -b` in `npm run build`.
+- **jest-dom matchers**: `src/setupTests.ts` imports `@testing-library/jest-dom/vitest` (not the plain `@testing-library/jest-dom` root import) — this is what gives Vitest's `expect` the correct TypeScript types for matchers like `.toBeInTheDocument()`.
+- **RTL auto-cleanup**: `vite.config.ts` does not set `test.globals: true`, so React Testing Library's automatic per-test `cleanup()` never registers (it needs a global `afterEach`). `src/setupTests.ts` explicitly imports `cleanup` and registers it in `afterEach` — without this, a test file with more than one `render()` call gets duplicate DOM across tests and spurious "multiple elements" failures.
+- **GitHub issue auto-close needs the default branch**: this repo's default branch is `main`, but all feature PRs merge into `Dev`. GitHub's "Closes #N" keyword only auto-closes an issue when the linked PR merges into the repository's *default* branch — so issues never auto-close here despite every PR body saying "Closes #N". Close finished issues manually, or account for this before assuming an issue's state reflects reality.
+- **Dev-server HMR can go stale across many edits**: after several rapid file edits in one long-running `npm run dev` session, the page can show stale/duplicated behavior unrelated to the actual code (seen once during manual browser verification). Restart the dev server before trusting a surprising manual-verification result.
 
 ## What to build
 
