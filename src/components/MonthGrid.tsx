@@ -33,8 +33,8 @@ export function MonthGrid({ today = new Date() }: MonthGridProps) {
   const goToNextMonth = () => setViewedMonth(new Date(year, month + 1, 1))
 
   return (
-    <div>
-      <div>
+    <div className="month-grid">
+      <div className="month-header">
         <button type="button" aria-label="Previous month" onClick={goToPrevMonth}>
           &lt;
         </button>
@@ -46,8 +46,8 @@ export function MonthGrid({ today = new Date() }: MonthGridProps) {
         </button>
       </div>
       {seedHabits.map((habit) => (
-        <div key={habit.id}>
-          <span>
+        <div key={habit.id} className="habit-row">
+          <span className="habit-label">
             {habit.icon} {habit.name}
           </span>
           {days.map((day) => {
@@ -60,11 +60,12 @@ export function MonthGrid({ today = new Date() }: MonthGridProps) {
               <button
                 key={dateKey}
                 type="button"
+                className="day-cell"
                 aria-label={`${habit.name} ${dateKey}`}
                 aria-pressed={ticked}
                 disabled={future}
                 style={{
-                  backgroundColor: ticked ? habit.color : 'transparent',
+                  backgroundColor: ticked ? habit.color : undefined,
                   opacity: future ? 0.4 : 1,
                 }}
                 {...(!future ? { onClick: () => toggleDay(habit.id, dateKey) } : {})}

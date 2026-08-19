@@ -1,0 +1,92 @@
+.app {
+  min-height: 100vh;
+  background-color: #fafafa;
+  color: #1a1a1a;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.tabs button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #ffffff;
+  color: inherit;
+  cursor: pointer;
+}
+
+.month-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.month-header button {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #ffffff;
+  color: inherit;
+  cursor: pointer;
+  padding: 0.25rem 0.6rem;
+}
+
+.habit-row {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.habit-label {
+  width: 9rem;
+  flex-shrink: 0;
+}
+
+.day-cell {
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #ffffff;
+  color: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.day-cell:disabled {
+  cursor: default;
+}
+
+.day-cell:not(:disabled):hover {
+  border-color: #999999;
+}
+
+.stats-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.stats-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0;
+}
+
+.icon-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  font-size: 1rem;
+}
