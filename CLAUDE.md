@@ -49,6 +49,8 @@ npm run lint      # oxlint
 - **RTL auto-cleanup**: `vite.config.ts` does not set `test.globals: true`, so React Testing Library's automatic per-test `cleanup()` never registers (it needs a global `afterEach`). `src/setupTests.ts` explicitly imports `cleanup` and registers it in `afterEach` — without this, a test file with more than one `render()` call gets duplicate DOM across tests and spurious "multiple elements" failures.
 - **GitHub issue auto-close needs the default branch**: this repo's default branch is `main`, but all feature PRs merge into `Dev`. GitHub's "Closes #N" keyword only auto-closes an issue when the linked PR merges into the repository's *default* branch — so issues never auto-close here despite every PR body saying "Closes #N". Close finished issues manually, or account for this before assuming an issue's state reflects reality.
 - **Dev-server HMR can go stale across many edits**: after several rapid file edits in one long-running `npm run dev` session, the page can show stale/duplicated behavior unrelated to the actual code (seen once during manual browser verification). Restart the dev server before trusting a surprising manual-verification result.
+- **`gh` CLI is unavailable in this environment's Bash tool** (`gh: command not found`) — use the GitHub MCP tools (`mcp__plugin_github_github__*`, e.g. `create_pull_request`, `issue_write`) for PR and issue operations instead.
+- **Always branch before committing, even for small additions**: committing straight to `Dev` breaks the feature→Dev PR convention. Fixing it after the fact requires reverting the direct commit on `Dev` and recreating the work on a proper `feature/*` branch — a disruptive history rewrite. Create the branch first.
 
 ## What to build
 
